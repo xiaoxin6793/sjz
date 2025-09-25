@@ -1,0 +1,328 @@
+/* ========== 基础样式 ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+    background: linear-gradient(135deg, #1a2a6c, #2a4b8c, #1c3b6f);
+    color: #fff;
+    height: 100vh;
+    padding: 15px;
+    overflow: hidden;
+}
+
+/* ========== 布局样式 ========== */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    grid-template-rows: auto 1fr auto;
+    gap: 15px;
+    height: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+header {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 15px 0;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.chart-container {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    height: 100%;
+    min-height: 0;
+}
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    padding-right: 5px;
+    height: 100%;
+}
+footer {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #adb5bd;
+    font-size: 0.85rem;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin-top: 15px;
+    flex-shrink: 0;
+}
+
+/* ========== 标题样式 ========== */
+h1 {
+    font-size: 2.4rem;
+    margin-bottom: 8px;
+    color: #f8f9fa;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(90deg, #4cc9f0, #4361ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.subtitle {
+    font-size: 1.1rem;
+    color: #adb5bd;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.4;
+}
+
+/* ========== 图表样式 ========== */
+#kline-chart {
+    width: 100%;
+    height: 100%;
+    background: #0d1b3d;
+    border-radius: 8px;
+}
+.zoom-controls {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.zoom-controls button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(76, 201, 240, 0.7);
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+}
+.zoom-controls button:hover {
+    background: rgba(76, 201, 240, 1);
+    transform: scale(1.1);
+}
+.status-bar {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #ccc;
+    z-index: 10;
+}
+
+/* ========== 面板样式 ========== */
+.panel-section {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+}
+.section-title {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    color: #4cc9f0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.section-title i {
+    font-size: 1.2rem;
+}
+
+/* ========== 表单样式 ========== */
+.form-group {
+    margin-bottom: 15px;
+}
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #dee2e6;
+    font-size: 0.9rem;
+}
+input, button, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.9rem;
+}
+input, select {
+    background: rgba(255, 255, 255, 0.9);
+    color: #212529;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+button {
+    background: linear-gradient(90deg, #4361ee, #3a0ca3);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.control-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.control-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+.file-input-container {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+.file-input-container input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.file-input-label {
+    display: block;
+    padding: 10px;
+    background: linear-gradient(90deg, #f72585, #b5179e);
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.file-input-label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.sample-data {
+    margin-top: 12px;
+}
+.sample-data button {
+    background: linear-gradient(90deg, #f72585, #b5179e);
+}
+
+/* ========== 按钮组样式 ========== */
+.toggle-buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.toggle-buttons button {
+    flex: 1;
+    padding: 8px;
+    font-size: 0.85rem;
+}
+.active-toggle {
+    background: linear-gradient(90deg, #4cc9f0, #4895ef) !important;
+}
+.tools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.tools button {
+    background: linear-gradient(90deg, #7209b7, #560bad);
+}
+.tools button:hover {
+    background: linear-gradient(90deg, #560bad, #480ca8);
+}
+
+/* ========== 绘图控件样式 ========== */
+.drawing-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+    position: relative;
+    z-index: 20;
+}
+.drawing-controls select {
+    margin-bottom: 8px;
+}
+.active-drawing {
+    background: linear-gradient(90deg, #4cc9f0, #4895ef) !important;
+}
+.drawing-list {
+    max-height: 120px;
+    overflow-y: auto;
+    margin-top: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 8px;
+}
+.drawing-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+}
+.drawing-item:last-child {
+    border-bottom: none;
+}
+.drawing-item button {
+    padding: 3px 6px;
+    font-size: 0.75rem;
+}
+
+/* ========== 其他样式 ========== */
+.color-legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+}
+.color-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+}
+.color-box {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.instructions ul {
+    padding-left: 18px;
+    margin-bottom: 0;
+}
+.instructions li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+    font-size: 0.9rem;
+}
+
+/* ========== 滚动条样式 ========== */
+.right-panel::-webkit-scrollbar {
+    width: 6px;
+}
+.right-panel::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}

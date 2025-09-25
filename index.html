@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三角洲理论分析工具</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>三角洲理论分析工具</h1>
+            <p class="subtitle">上传股票数据，绘制K线图并叠加三角洲彩线，辅助技术分析</p>
+        </header>
+        
+        <div class="chart-container">
+            <div id="kline-chart"></div>
+            <div class="zoom-controls">
+                <button id="zoom-in">+</button>
+                <button id="zoom-out">-</button>
+                <button id="reset-zoom">↺</button>
+            </div>
+            <div class="status-bar" id="status-bar">就绪 - 选择绘图工具开始绘制</div>
+        </div>
+        
+        <div class="right-panel">
+            <div class="panel-section">
+                <div class="section-title">
+                    <i>📁</i> 数据源
+                </div>
+                <div class="file-input-container">
+                    <input type="file" id="file-input" accept=".txt">
+                    <label for="file-input" class="file-input-label">选择TXT文件</label>
+                </div>
+                
+                <div class="sample-data">
+                    <button id="load-sample">加载示例数据</button>
+                </div>
+            </div>
+            
+            <div class="panel-section">
+                <div class="section-title">
+                    <i>⚙️</i> 彩线设置
+                </div>
+                <div class="control-row">
+                    <div class="form-group">
+                        <label for="start-date">起始日期</label>
+                        <input type="date" id="start-date" value="2021-08-02">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interval">间隔(天)</label>
+                        <input type="number" id="interval" value="29.53" step="0.01">
+                    </div>
+                </div>
+                
+                <button id="generate-lines">生成彩线</button>
+                
+                <div class="color-legend">
+                    <div class="color-item">
+                        <div class="color-box" style="background-color: #ff4b4b;"></div>
+                        <span>红线</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background-color: #4b7aff;"></div>
+                        <span>蓝线</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background-color: #ff9f4b;"></div>
+                        <span>橙线</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background-color: #4bff97;"></div>
+                        <span>绿线</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-section">
+                <div class="section-title">
+                    <i>🌿</i> 节气设置
+                </div>
+                <div class="control-row">
+                    <div class="form-group">
+                        <label for="solar-term-year">年份</label>
+                        <input type="number" id="solar-term-year" value="2023" min="1900" max="2100">
+                    </div>
+                </div>
+                
+                <button id="generate-solar-terms">生成节气</button>
+                <button id="toggle-solar-terms" style="margin-top: 10px;">隐藏节气</button>
+                
+                <div class="color-legend">
+                    <div class="color-item">
+                        <div class="color-box" style="background-color: #ff9999;"></div>
+                        <span>春季</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background-color: #99ccff;"></div>
+                        <span>夏季</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background-color: #ffcc99;"></div>
+                        <span>秋季</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background-color: #ccff99;"></div>
+                        <span>冬季</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-section">
+                <div class="section-title">
+                    <i>📊</i> 显示控制
+                </div>
+                <div class="toggle-buttons">
+                    <button id="toggle-kline" class="active-toggle">K线图</button>
+                    <button id="toggle-delta">三角洲彩线</button>
+                    <button id="toggle-both">两者都显示</button>
+                </div>
+            </div>
+            
+            <div class="panel-section">
+                <div class="section-title">
+                    <i>🛠️</i> 分析工具
+                </div>
+                <div class="drawing-controls">
+                    <select id="drawing-tool">
+                        <option value="none">选择绘图工具</option>
+                        <option value="trendline">趋势线</option>
+                        <option value="horizontal">水平线</option>
+                        <option value="vertical">垂直线</option>
+                    </select>
+                    
+                    <select id="line-style">
+                        <option value="solid">实线</option>
+                        <option value="dashed">虚线</option>
+                        <option value="dotted">点线</option>
+                    </select>
+                    
+                    <select id="line-color">
+                        <option value="#ff4b4b">红色</option>
+                        <option value="#4b7aff">蓝色</option>
+                        <option value="#ff9f4b">橙色</option>
+                        <option value="#4bff97">绿色</option>
+                        <option value="#f8f9fa">白色</option>
+                        <option value="#ff00ff">粉色</option>
+                    </select>
+                    
+                    <div class="tools">
+                        <button id="start-drawing">开始绘制</button>
+                        <button id="clear-all-lines">清除所有</button>
+                    </div>
+                    
+                    <div class="drawing-list" id="drawing-list">
+                        <div class="drawing-item">
+                            <span>暂无绘图对象</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-section">
+                <div class="section-title">
+                    <i>ℹ️</i> 使用说明
+                </div>
+                <div class="instructions">
+                    <ul>
+                        <li>上传TXT格式的股票数据（日期YYYYMMDD,开盘,最高,最低,收盘,成交量,成交额）</li>
+                        <li>设置彩线起始日期和间隔周期（如ITD:29.53天，LTD:365.25天）</li>
+                        <li>点击"生成彩线"在图表上显示垂直线</li>
+                        <li>选择绘图工具、线型和颜色，然后点击"开始绘制"</li>
+                        <li>在图表上点击并拖动来绘制线条</li>
+                        <li>使用显示控制按钮切换不同的视图模式</li>
+                        <li>使用鼠标滚轮或右上角缩放按钮进行缩放操作</li>
+                        <li>设置年份并点击"生成节气"显示精确的节气时间线</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>三角洲理论分析工具 &copy; 2023 - 基于ECharts实现 | 专业的技术分析助手</p>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
